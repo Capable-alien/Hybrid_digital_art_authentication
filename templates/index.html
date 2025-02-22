@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artwork Authentication Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { color: #333; }
+        form { margin-bottom: 40px; }
+        label { font-weight: bold; }
+        input[type="text"], input[type="file"] { width: 300px; padding: 5px; margin-top: 5px; }
+        button { padding: 8px 16px; font-size: 1em; }
+        hr { margin: 40px 0; }
+    </style>
+</head>
+<body>
+    <h1>Digital Art Authentication Portal</h1>
+    
+    <h2>Submit Your Artwork for Authentication</h2>
+    <form action="/submit_artwork" method="POST" enctype="multipart/form-data">
+        <label for="artist_name">Artist Name:</label><br>
+        <input type="text" name="artist_name" required><br><br>
+        
+        <label for="artwork_title">Artwork Title:</label><br>
+        <input type="text" name="artwork_title" required><br><br>
+        
+        <label for="creation_date">Creation Date:</label><br>
+        <input type="text" name="creation_date" required><br><br>
+        
+        <label for="unique_identifier">Unique Identifier:</label><br>
+        <input type="text" name="unique_identifier" required><br><br>
+        
+        <label for="image">Image:</label><br>
+        <input type="file" name="image" accept=".png,.jpg,.jpeg,.gif" required><br><br>
+        
+        <button type="submit">Submit Artwork</button>
+    </form>
+
+    <hr>
+
+    <h2>Verify Artwork Integrity</h2>
+    <form action="/verify_artwork" method="GET" onsubmit="return redirectToVerify()">
+        <label for="filename">Watermarked Image Filename:</label><br>
+        <input type="text" id="filename" name="filename" placeholder="e.g., watermarked_artwork.png" required><br><br>
+        <button type="submit">Verify Artwork</button>
+    </form>
+
+    <script>
+        function redirectToVerify() {
+            var filename = document.getElementById("filename").value;
+            if (filename) {
+                // Redirect to /verify_artwork/<filename>
+                window.location.href = "/verify_artwork/" + encodeURIComponent(filename);
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
 
